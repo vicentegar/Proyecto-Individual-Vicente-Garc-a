@@ -1,123 +1,43 @@
-Tecnología de Celdas PEM en Chile
-Tecnología en Chile
+# Tecnología en Chile
+La tecnología de celdas de combustible PEM tiene una gran oportunidad de aplicación en Chile debido a una combinación única de recursos, infraestructura y compromisos estratégicos del país. Chile cuenta con una de las mayores capacidades mundiales de generación de hidrógeno verde a nivel mundial, gracias al potencial solar del desierto de Atacama y a los vientos de la zona Austral [1,2], lo que permite producir hidrogeno a bajo costo y con una huella de carbono mínima. En Chile ya existen proyectos piloto que operan con celdas PEM. Uno de ellos es impulsado por ENAP [3], mientras que otro, de alto interés internacional, corresponde a la planta instalada por HIF en Magallanes [4]. Además, la industria minera, una actividad estratégica nacional, requiere tecnologías energéticas limpias y de alta eficiencia que reduzcan emisiones locales, donde las celdas PEM pueden sustituir motores diésel en equipos. Finalmente, Chile mantiene compromisos internacionales de descarbonización al 2050, lo que impulsa la adopción de tecnologías de hidrógeno en aplicaciones industriales, portuarias y residenciales [5]. En conjunto, estos factores hacen que la implementación de celdas PEM sea técnicamente viable y estratégicamente coherente con la política energética del país.
 
-La tecnología de celdas de combustible PEM presenta una gran oportunidad de aplicación en Chile gracias a su combinación única de recursos naturales, infraestructura energética y compromisos estratégicos de descarbonización.
+# Evaluación del impacto social, ambiental y económico en Chile
+La adopción de celdas de combustible PEM en Chile puede generar impactos significativos en lo social, ambiental y económico. Desde la perspectiva ambiental, la operación de las celdas PEM es completamente libre de emisiones locales, lo que contribuye a mejora la calidad del aire en zonas urbanas y en áreas industriales como en la parte minera, donde la sustitución de motores diésel reduciría material particulado y NOx [6]. Además, si el hidrógeno proviene de fuentes renovables, como ocurre con el proyecto de HIF en Magallanes [4], la huella de carbono del sistema cae prácticamente a cero, alineándose con los compromisos del país para la carbono neutralidad al 2050 [5]. En el ámbito social, la introducción de esta tecnología impulsa la creación de nuevos perfiles laborales en el ecosistema del hidrógeno verde, fortaleciendo capacidades locales en regiones como Antofagasta y Magallanes, donde universidades y centros de investigación ya están formando capital humano para esta industria emergente. Finalmente, desde el punto de vista económico, las celdas PEM habilitan el desarrollo de cadenas de valor asociadas al hidrógeno verde, un sector donde Chile posee ventajas competitivas naturales, como se vio en el apartado anterior. Esto abre oportunidades de inversión extranjera, como con HIF [4], como también nacional, con el proyecto de ENAP en Cabo Negro [7]. Además, el mercado del hidrógeno se espera que crezca a 317 billones de dólares para el 2030 [8].
 
-Chile posee una de las mayores capacidades de producción de hidrógeno verde del mundo, habilitada por el altísimo potencial solar del desierto de Atacama y los vientos intensos de la zona austral [1,2]. Esto permite generar hidrógeno a menor costo y con una huella de carbono considerablemente más baja.
+# Proyección futura en Chile
+Considerando lo analizado en los puntos anteriores, Chile enfrenta una oportunidad excepcional para desarrollar el mercado del hidrógeno gracias a sus ventajas competitivas naturales, que permiten reducir una de las principales barreras económicas de esta tecnología: el costo de producción. La existencia de proyectos nacionales e internacionales en ejecución demuestra que el interés por el hidrógeno y las celdas PEM es real y creciente. No obstante, al tratarse de una tecnología aún emergente, persisten desafíos asociados a la reducción de costos, el desarrollo de infraestructura y la generación de conocimiento local. Aun así, una mayor adopción de estas tecnologías podría acelerar el aprendizaje, abaratar procesos y consolidar un ecosistema más competitivo. En síntesis, la factibilidad futura es altamente positiva, siempre que Chile mantenga su ritmo de inversión, fortalecimiento regulatorio y desarrollo tecnológico en los próximos años.
 
-En el país ya existen proyectos piloto que utilizan celdas PEM. Entre ellos destaca el desarrollado por ENAP [3] y la planta de HIF en Magallanes, iniciativa de gran interés internacional [4].
+# Implementación Código [9]
 
-La minería, uno de los motores económicos de Chile, también impulsa esta adopción al requerir tecnologías limpias y eficientes que reduzcan emisiones locales. Las celdas PEM tienen el potencial de sustituir motores diésel en equipos industriales, especialmente en minería. Asimismo, los compromisos nacionales de carbono-neutralidad al 2050 refuerzan la implementación de tecnologías basadas en hidrógeno en aplicaciones industriales, portuarias y residenciales [5].
+## Constantes y tablas de parámetros
+En primer lugar se definieron las constantes del proceso, en donde se agregan los valores dados por el paper.
+Por otro lado, los parámetros de las tablas fueron dados en gráficos en el paper, en donde cada punto fue sacado a través de WebPlotDigitizer [10], para luego agregarlos con respecto a su temperatura.
 
-En conjunto, estos factores hacen que la implementación de celdas PEM sea técnicamente viable y estratégicamente coherente con la política energética del país.
+## Presiones Parciales
+Se utilizan las presiones parciales de las condiciones experimentales que da el paper. La celda opera a presión atmosférica, alimentada con hidrógeno puro en el ánodo y aire en el cátodo. Por lo tanto:
+- Hidrógeno (1 bar): Se suministra puro, por lo que la presión parcial corresponde a la presión total del gas en el ánodo.
+- Oxígeno (0,21 bar): Se considera aire atmosférico, cuya fracción molar de oxígeno es aproximadamente 21%
+- Agua (Psat): El hidrógeno y aire se humidifican mediante burbujeo a la misma temperatura de operación, por lo que el vapor de agua alcanza su presión de saturación a dicha temperatura.
 
-Evaluación del impacto social, ambiental y económico en Chile
+## Voltaje de Circuito Abierto
+Se emplea la ecuación de Nerst, la cual depende de la energía libre de Gibbs, una magnitud que varía con la temperatura. Con el fin de incorporar correctamente este efecto térmico en el modelo, utilice la expresión del potencial dependiente de la temperatura vista en clases. Los desarrollos y cálculos para obtener esta relación están adjuntos.
 
-La adopción de celdas de combustible PEM puede generar impactos relevantes en distintos ámbitos:
+## Sobrepotenciales
+Se definieron los distintos sobrepotenciales utilizando las expresiones entregadas en el paper. Para el sobrepotencial de activación se define la fórmula dada en el paper, que representa el despeje del sobrepotencial de la ecuación de BV. En el caso del sobrepotencial óhmico, se empleó la formulación empírica propuesta por los autores, cuya justificación detallada se encuentra en el documento adjunto.
+Asimismo, se incluyó la expresión del sobrepotencial de concentración, aun cuando su contribución práctica sea despreciable dentro del rango de operación considerado. Esto permite que cualquier usuario del código pueda modificar este término si su propios parámetros experimentales así lo requieren.
 
-Impacto ambiental
+## Generación de la curva
+La curva de polarización se genera evaluando la ecuación completa del modelo para un rango de densidades de corriente. El código obtiene los parámetros correspondientes a la temperatura seleccionada (C1, C2, i0,c, in) y calcula el voltaje de circuito abierto usando la ecuación de Nerst. Luego, para cada valor de corriente, se computan los tres sobrepotenciales principales y se restan del voltaje de circuito abierto. Al recorrer todo el vector de densidades de corriente, se construye la curva V-i completa que se representa gráficamente.
 
-Las celdas PEM no producen emisiones locales, mejorando la calidad del aire en zonas urbanas o industriales.
+# Referencias
+[1] Bernardelli, F. (2011, junio). Energía solar termodinámica en América Latina: los casos del Brasil, Chile y México (Doc. № LC/W.402). Comisión Económica para América Latina y el Caribe. https://repositorio.cepal.org/handle/11362/3867  
+[2] Ministerio de Energía. (s. f.). Explorador Eólico. Gobierno de Chile. https://eolico.minenergia.cl/  
+[3] ENAP. (2024, 17 de octubre). Planta de hidrógeno verde de ENAP presenta un 72% de avance. https://www.enap.cl/sala-de-prensa/planta-de-hidrogeno-verde-de-enap-presenta-un-72-de-avance  
+[4] HIF Global. (s. f.). HIF Haru Oni. https://es.hifglobal.com/locations/hif-haru-oni  
+[5] Ministerio del Medio Ambiente. (s. f.). Estrategia Climática de Largo Plazo 2050. Gobierno de Chile. https://cambioclimatico.mma.gob.cl/estrategia-climatica-de-largo-plazo-2050/descripcion-del-instrumento/  
+[6] Silva Garrido, V. E. (2022). Diseño de un piloto de celdas de combustible de hidrógeno como fuente de energía para camiones CAEX (Tesis de pregrado). Universidad de Chile. https://repositorio.uchile.cl/handle/2250/188029  
+[7] ENAP. (2024, octubre 17). Planta de hidrógeno verde de ENAP presenta un 72% de avance. https://www.enap.cl/sala-de-prensa/planta-de-hidrogeno-verde-de-enap-presenta-un-72-de-avance  
+[8] Grand View Research. (s. f.). Hydrogen generation market. https://www.grandviewresearch.com/industry-analysis/hydrogen-generation-market  
+[9] Santarelli, M. G., Torchio, M. F., & Cochis, P. (2005). Parameters estimation of a PEM fuel cell polarization curve and analysis of their behavior with temperature.  
+[10] Rohatgi, Ankit, “Webplotdigitizer: Extract data from plots, images, and maps” (2025), Consultado el 2 de noviembre de 2025
 
-En minería, sustituir motores diésel reduce material particulado y NOx [6].
-
-Cuando funcionan con hidrógeno verde —como el producido en Magallanes— la huella de carbono es prácticamente cero [4].
-
-Contribuyen a los compromisos de carbono-neutralidad para 2050 [5].
-
-Impacto social
-
-Se crean nuevos perfiles laborales en el ecosistema del hidrógeno verde.
-
-Universidades y centros regionales (Antofagasta, Magallanes) ya están formando capital humano especializado.
-
-Impulsa el desarrollo tecnológico local y nuevas capacidades en la industria energética.
-
-Impacto económico
-
-Las celdas PEM habilitan una cadena de valor completa asociada al hidrógeno verde.
-
-Chile posee ventajas competitivas naturales para producir hidrógeno a bajo costo.
-
-Aumenta el interés de inversión extranjera (HIF) y nacional (ENAP en Cabo Negro) [4,7].
-
-El mercado global del hidrógeno se proyecta en 317 mil millones de dólares para 2030 [8].
-
-Proyección futura en Chile
-
-Chile enfrenta una oportunidad extraordinaria para consolidarse como líder mundial en hidrógeno verde. Sus ventajas competitivas naturales reducen una de las principales barreras de esta tecnología: el costo de producción del hidrógeno.
-
-La existencia de múltiples proyectos nacionales e internacionales demuestra que el interés por las celdas PEM es real y creciente. Sin embargo, aún existen desafíos: reducción de costos, infraestructura, regulación y la acumulación de conocimiento técnico.
-
-Pese a estos puntos, la perspectiva a futuro es altamente positiva. Si Chile mantiene el ritmo de inversión, regulación moderna y desarrollo tecnológico, podrá consolidar un ecosistema competitivo y sostenible basado en hidrógeno verde.
-
-Implementación del Código [9]
-Constantes y tablas de parámetros
-
-Se definen:
-
-Constantes del proceso, tomadas directamente del paper.
-
-Tablas de parámetros extraídas desde gráficos del paper mediante WebPlotDigitizer [10], de acuerdo a cada temperatura.
-
-Presiones parciales
-
-En base a las condiciones experimentales del paper:
-
-Hidrógeno (1 bar): alimentado puro → presión parcial igual a la total del ánodo.
-
-Oxígeno (0,21 bar): aire atmosférico (21% O₂).
-
-Vapor de agua (Psat): los gases se humidifican mediante burbujeo a la misma temperatura de operación → vapor a presión de saturación.
-
-Voltaje de circuito abierto
-
-Se emplea la ecuación de Nernst, que depende de la energía libre de Gibbs, variable con la temperatura.
-Se utiliza la expresión del potencial dependiente de temperatura vista en clases (cálculo adjunto y documentado).
-
-Sobrepotenciales
-
-Se utilizan las expresiones del paper:
-
-Activación: despeje de la ecuación de Butler–Volmer.
-
-Óhmico: fórmula empírica propuesta por los autores (justificación adjunta).
-
-Concentración: incluida por completitud, aun cuando sea despreciable en este rango de operación.
-
-Generación de la curva
-
-La curva de polarización se genera evaluando la ecuación completa del modelo para un rango de densidades de corriente:
-
-Se obtienen los parámetros correspondientes a la temperatura elegida:
-C1, C2, i0,c, in.
-
-Se calcula el voltaje de circuito abierto con la ecuación de Nernst.
-
-Para cada densidad de corriente se calculan los tres sobrepotenciales.
-
-Estos se restan del voltaje abierto para obtener el voltaje total.
-
-Se recorre todo el vector de corrientes para construir la curva V–i final.
-
-Referencias
-
-[1] Bernardelli, F. (2011, junio). Energía solar termodinámica en América Latina: los casos del Brasil, Chile y México (Doc. № LC/W.402). CEPAL. https://repositorio.cepal.org/handle/11362/3867
-
-[2] Ministerio de Energía. (s. f.). Explorador Eólico. Gobierno de Chile. https://eolico.minenergia.cl/
-
-[3] ENAP. (2024, 17 de octubre). Planta de hidrógeno verde de ENAP presenta un 72% de avance. https://www.enap.cl/sala-de-prensa/planta-de-hidrogeno-verde-de-enap-presenta-un-72-de-avance
-
-[4] HIF Global. (s. f.). HIF Haru Oni. https://es.hifglobal.com/locations/hif-haru-oni
-
-[5] Ministerio del Medio Ambiente. (s. f.). Estrategia Climática de Largo Plazo 2050. Gobierno de Chile. https://cambioclimatico.mma.gob.cl/estrategia-climatica-de-largo-plazo-2050/descripcion-del-instrumento/
-
-[6] Silva Garrido, V. E. (2022). Diseño de un piloto de celdas de combustible de hidrógeno como fuente de energía para camiones CAEX (Tesis de pregrado). Universidad de Chile. https://repositorio.uchile.cl/handle/2250/188029
-
-[7] ENAP. (2024, octubre 17). Planta de hidrógeno verde de ENAP presenta un 72% de avance. https://www.enap.cl/sala-de-prensa/planta-de-hidrogeno-verde-de-enap-presenta-un-72-de-avance
-
-[8] Grand View Research. (s. f.). Hydrogen generation market. https://www.grandviewresearch.com/industry-analysis/hydrogen-generation-market
-
-[9] Santarelli, M. G., Torchio, M. F., & Cochis, P. (2005). Parameters estimation of a PEM fuel cell polarization curve and analysis of their behavior with temperature. Journal of Power Sources, 145(2), 334–345.
-
-[10] Rohatgi, A. (2025). WebPlotDigitizer. https://automeris.io/WebPlotDigitizer
